@@ -86,8 +86,8 @@ const ko: Dict = {
   introDesc:
     "힘든 순간, 판단하지 않고 함께 걷겠습니다. 당신은 혼자가 아니며, 깊이 이해받고 있고, 충분히 소중한 사람입니다.",
   verseText:
-    "모든 것을 다 알아야 하는 건 아닙니다. 다음 한 걸음만 내디디면 됩니다.",
-  verseRef: "작자 미상",
+    "답을 가지고 오지 않아도 괜찮아요. 그저 마음을 꺼내놓는 것부터 시작해요.",
+  verseRef: "",
   enter: "여정 시작하기",
   note: "MANNA는 따뜻한 정서적 동행을 제공합니다. 전문적인 의료·심리 치료를 대체하지 않습니다.",
   platform: "AI 마음 동행",
@@ -169,8 +169,8 @@ const en: Dict = {
   introDesc:
     "In hard moments, we walk with you without judgment. You are not alone. You are deeply seen, and you matter.",
   verseText:
-    "You don’t have to have it all figured out. You just have to take the next step.",
-  verseRef: "Unknown",
+    "You don't have to arrive with answers. Just begin by setting your heart down here.",
+  verseRef: "",
   enter: "Start Your Journey",
   note: "MANNA provides professional emotional support. It is not a substitute for professional medical or psychological treatment.",
   platform: "An AI companion for the heart",
@@ -251,8 +251,8 @@ const th: Dict = {
   introDesc:
     "ในช่วงเวลายากลำบาก เราเดินไปกับคุณโดยไม่ตัดสิน คุณไม่ได้อยู่ลำพัง คุณถูกมองเห็นอย่างลึกซึ้ง และคุณมีค่า",
   verseText:
-    "คุณไม่จำเป็นต้องเข้าใจทุกอย่าง เพียงก้าวต่อไปอีกหนึ่งก้าวก็พอ",
-  verseRef: "ไม่ทราบผู้ประพันธ์",
+    "ไม่ต้องมีคำตอบมาก่อนก็ได้ แค่เริ่มจากการวางใจลงตรงนี้",
+  verseRef: "",
   enter: "เริ่มการเดินทางของคุณ",
   note: "MANNA ให้การประคับประคองทางอารมณ์ ไม่ใช่สิ่งทดแทนการรักษาทางการแพทย์หรือจิตวิทยา",
   platform: "เพื่อนร่วมทางใจด้วย AI",
@@ -333,8 +333,8 @@ const es: Dict = {
   introDesc:
     "En los momentos difíciles caminamos contigo sin juzgar. No estás solo. Eres visto en profundidad y tu vida importa.",
   verseText:
-    "No tienes que tenerlo todo resuelto. Solo tienes que dar el siguiente paso.",
-  verseRef: "Anónimo",
+    "No hace falta que llegues con respuestas. Empieza solo por dejar aquí tu corazón.",
+  verseRef: "",
   enter: "Comienza tu camino",
   note: "MANNA ofrece acompañamiento emocional. No sustituye el tratamiento médico o psicológico profesional.",
   platform: "Un compañero emocional con IA",
@@ -417,8 +417,8 @@ const pt: Dict = {
   introDesc:
     "Nos momentos difíceis caminhamos com você sem julgamento. Você não está só. Você é profundamente visto e importa.",
   verseText:
-    "Você não precisa ter tudo resolvido. Só precisa dar o próximo passo.",
-  verseRef: "Autor desconhecido",
+    "Você não precisa chegar com respostas. Comece apenas por deixar seu coração aqui.",
+  verseRef: "",
   enter: "Comece sua jornada",
   note: "MANNA oferece apoio emocional. Não substitui tratamento médico ou psicológico profissional.",
   platform: "Um companheiro emocional com IA",
@@ -502,8 +502,8 @@ const hi: Dict = {
   introDesc:
     "कठिन क्षणों में हम बिना न्याय किए आपके साथ चलते हैं। आप अकेले नहीं हैं। आपको गहराई से देखा जाता है, और आप मायने रखते हैं।",
   verseText:
-    "सब कुछ समझा हुआ होना ज़रूरी नहीं। बस अगला एक कदम बढ़ाना काफ़ी है।",
-  verseRef: "अज्ञात",
+    "जवाब लेकर आना ज़रूरी नहीं। बस अपने मन की बात यहाँ रखने से शुरुआत करें।",
+  verseRef: "",
   enter: "अपनी यात्रा शुरू करें",
   note: "MANNA भावनात्मक सहारा देता है। यह पेशेवर चिकित्सा या मनोवैज्ञानिक उपचार का विकल्प नहीं है।",
   platform: "एक AI मन साथी",
@@ -585,8 +585,8 @@ const zh: Dict = {
   introTitle: "在分享你的内心之前，我们先准备一个安全的空间。",
   introDesc:
     "在艰难时刻，我们不评判地陪你同行。你并不孤单，你被深深看见，你很重要。",
-  verseText: "你不必把一切都想明白，只需要迈出下一步。",
-  verseRef: "佚名",
+  verseText: "你不必带着答案而来，只需先把心放在这里。",
+  verseRef: "",
   enter: "开始你的旅程",
   note: "MANNA 提供情感陪伴，并不能替代专业的医疗或心理治疗。",
   platform: "AI 心灵同行",
