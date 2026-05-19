@@ -132,8 +132,8 @@ const ko: Dict = {
   authConfigMissing:
     "Supabase 설정이 필요합니다. 환경변수를 확인해주세요.",
   thinking: "MANNA가 마음을 헤아리는 중…",
-  donate: "후원하기",
-  donateTitle: "후원하기",
+  donate: "함께하기",
+  donateTitle: "함께하기",
   donateSub:
     "MANNA의 동행을 함께해주세요. 여러분의 후원이 더 많은 분들에게 따뜻한 위로를 전합니다.",
   donateKakao: "카카오페이로 후원하기",
@@ -214,8 +214,8 @@ const en: Dict = {
   invalidEmail: "Please enter a valid email.",
   authConfigMissing: "Supabase is not configured. Check your env variables.",
   thinking: "MANNA is reflecting…",
-  donate: "Support",
-  donateTitle: "Support MANNA",
+  donate: "Walk with us",
+  donateTitle: "Walk with MANNA",
   donateSub:
     "Walk alongside MANNA. Your support carries warmth and comfort to more people.",
   donateKakao: "Give with KakaoPay",
@@ -296,8 +296,8 @@ const th: Dict = {
   invalidEmail: "โปรดกรอกอีเมลที่ถูกต้อง",
   authConfigMissing: "ยังไม่ได้ตั้งค่า Supabase โปรดตรวจสอบตัวแปรสภาพแวดล้อม",
   thinking: "MANNA กำลังใคร่ครวญ…",
-  donate: "สนับสนุน",
-  donateTitle: "สนับสนุน MANNA",
+  donate: "ร่วมเดินด้วยกัน",
+  donateTitle: "ร่วมเดินไปกับ MANNA",
   donateSub:
     "ร่วมเดินไปกับ MANNA การสนับสนุนของคุณนำความอบอุ่นและการปลอบโยนไปสู่ผู้คนมากขึ้น",
   donateKakao: "บริจาคผ่าน KakaoPay",
@@ -380,8 +380,8 @@ const es: Dict = {
   authConfigMissing:
     "Supabase no está configurado. Revisa tus variables de entorno.",
   thinking: "MANNA está reflexionando…",
-  donate: "Apoyar",
-  donateTitle: "Apoyar a MANNA",
+  donate: "Caminar juntos",
+  donateTitle: "Camina con MANNA",
   donateSub:
     "Camina junto a MANNA. Tu apoyo lleva calidez y consuelo a más personas.",
   donateKakao: "Donar con KakaoPay",
@@ -465,8 +465,8 @@ const pt: Dict = {
   authConfigMissing:
     "Supabase não está configurado. Verifique suas variáveis de ambiente.",
   thinking: "MANNA está refletindo…",
-  donate: "Apoiar",
-  donateTitle: "Apoiar o MANNA",
+  donate: "Caminhar juntos",
+  donateTitle: "Caminhe com o MANNA",
   donateSub:
     "Caminhe ao lado do MANNA. Seu apoio leva acolhimento e conforto a mais pessoas.",
   donateKakao: "Doar com KakaoPay",
@@ -549,8 +549,8 @@ const hi: Dict = {
   authConfigMissing:
     "Supabase कॉन्फ़िगर नहीं है। अपने एनवायरनमेंट वेरिएबल जाँचें।",
   thinking: "MANNA विचार कर रहा है…",
-  donate: "सहयोग",
-  donateTitle: "MANNA का सहयोग करें",
+  donate: "साथ चलें",
+  donateTitle: "MANNA के साथ चलें",
   donateSub:
     "MANNA के साथ चलें। आपका सहयोग और अधिक लोगों तक गर्मजोशी और सांत्वना पहुँचाता है।",
   donateKakao: "KakaoPay से दान करें",
@@ -630,8 +630,8 @@ const zh: Dict = {
   invalidEmail: "请输入有效的邮箱。",
   authConfigMissing: "Supabase 尚未配置。请检查环境变量。",
   thinking: "MANNA 正在思考…",
-  donate: "支持",
-  donateTitle: "支持 MANNA",
+  donate: "同行",
+  donateTitle: "与 MANNA 同行",
   donateSub:
     "与 MANNA 同行。您的支持把温暖与安慰带给更多的人。",
   donateKakao: "用 KakaoPay 支持",
