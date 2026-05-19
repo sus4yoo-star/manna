@@ -1,0 +1,699 @@
+import type { LangCode } from "./types";
+
+export const LANG_OPTIONS: { code: LangCode; label: string }[] = [
+  { code: "ko", label: "한국어" },
+  { code: "en", label: "English" },
+  { code: "th", label: "ไทย" },
+  { code: "es", label: "Español" },
+  { code: "pt", label: "Português" },
+  { code: "hi", label: "हिन्दी" },
+  { code: "zh", label: "中文" },
+];
+
+export interface Dict {
+  tagline: string;
+  introTitle: string;
+  introDesc: string;
+  verseText: string;
+  verseRef: string;
+  enter: string;
+  note: string;
+  platform: string;
+  bibleOn: string;
+  bibleOff: string;
+  welcomeTitle: string;
+  welcomeDesc: string;
+  placeholder: string;
+  hint: string;
+  send: string;
+  examples: string[];
+  // sidebar
+  newChat: string;
+  history: string;
+  rename: string;
+  delete: string;
+  confirmDelete: string;
+  noSessions: string;
+  // auth
+  authTitle: string;
+  authDesc: string;
+  google: string;
+  email: string;
+  password: string;
+  name: string;
+  login: string;
+  signup: string;
+  loggingIn: string;
+  signingUp: string;
+  logout: string;
+  toSignup: string;
+  toLogin: string;
+  haveAccount: string;
+  needAccount: string;
+  passwordMin: string;
+  invalidEmail: string;
+  authConfigMissing: string;
+  thinking: string;
+  donate: string;
+  donateTitle: string;
+  donateSub: string;
+  donateKakao: string;
+  donateKakaoDesc: string;
+  donatePaypal: string;
+  donatePaypalDesc: string;
+  donateBankLabel: string;
+  donateBank: string;
+  donateAccount: string;
+  donateHolder: string;
+  donateCopy: string;
+  donateCopied: string;
+  donateNote: string;
+  installTitle: string;
+  installDesc: string;
+  installButton: string;
+  installAndroid: string;
+  installIOS: string;
+  installLater: string;
+  attach: string;
+  photoSent: string;
+  photoChat: string;
+  photoTooLarge: string;
+}
+
+const ko: Dict = {
+  tagline: "당신이 어디에 있든, 함께 걷습니다",
+  introTitle: "마음을 나누기 전, 안전한 공간을 준비할게요.",
+  introDesc:
+    "힘든 순간, 판단하지 않고 함께 걷겠습니다. 당신은 혼자가 아니며, 깊이 이해받고 있고, 충분히 소중한 사람입니다.",
+  verseText:
+    "모든 것을 다 알아야 하는 건 아닙니다. 다음 한 걸음만 내디디면 됩니다.",
+  verseRef: "작자 미상",
+  enter: "여정 시작하기",
+  note: "MANNA는 따뜻한 정서적 동행을 제공합니다. 전문적인 의료·심리 치료를 대체하지 않습니다.",
+  platform: "AI 마음 동행",
+  bibleOn: "깊은 동행 켬",
+  bibleOff: "깊은 동행 끔",
+  welcomeTitle: "어떤 마음으로 오셨나요?",
+  welcomeDesc: "힘든 일이 있으신가요? 마음을 편히 나눠주세요.",
+  placeholder: "마음을 나눠주세요…",
+  hint: "Enter 전송 · Shift+Enter 줄바꿈",
+  send: "보내기",
+  examples: [
+    "😨 불안하고 두려워요",
+    "💔 관계가 힘들어요",
+    "😔 외롭고 우울해요",
+    "😡 화가 나요",
+    "😞 실패한 것 같아요",
+    "🌱 마음을 다잡고 싶어요",
+  ],
+  newChat: "새 대화",
+  history: "대화 기록",
+  rename: "이름 변경",
+  delete: "삭제",
+  confirmDelete: "이 대화를 삭제할까요?",
+  noSessions: "아직 대화가 없습니다.",
+  authTitle: "마음을 나누기 전, 안전한 공간을 준비할게요.",
+  authDesc: "로그인하면 상담 기록과 마음의 여정을 사용자별로 저장합니다.",
+  google: "Google로 계속하기",
+  email: "이메일",
+  password: "비밀번호",
+  name: "이름 (선택)",
+  login: "로그인",
+  signup: "회원가입",
+  loggingIn: "로그인 중…",
+  signingUp: "가입 중…",
+  logout: "로그아웃",
+  toSignup: "회원가입",
+  toLogin: "로그인",
+  haveAccount: "이미 계정이 있으신가요?",
+  needAccount: "계정이 없으신가요?",
+  passwordMin: "비밀번호는 6자 이상이어야 합니다.",
+  invalidEmail: "올바른 이메일을 입력해주세요.",
+  authConfigMissing:
+    "Supabase 설정이 필요합니다. 환경변수를 확인해주세요.",
+  thinking: "MANNA가 마음을 헤아리는 중…",
+  donate: "후원하기",
+  donateTitle: "후원하기",
+  donateSub:
+    "MANNA의 동행을 함께해주세요. 여러분의 후원이 더 많은 분들에게 따뜻한 위로를 전합니다.",
+  donateKakao: "카카오페이로 후원하기",
+  donateKakaoDesc: "카카오페이 · 간편 결제",
+  donatePaypal: "페이팔로 후원하기",
+  donatePaypalDesc: "해외 카드 · 전 세계 어디서나",
+  donateBankLabel: "계좌이체",
+  donateBank: "은행",
+  donateAccount: "계좌번호",
+  donateHolder: "예금주",
+  donateCopy: "복사",
+  donateCopied: "복사됨",
+  donateNote:
+    "후원금은 MANNA 서비스 운영과 더 많은 사람에게 닿기 위해 사용됩니다. 함께해주셔서 진심으로 감사합니다.",
+  installTitle: "MANNA를 앱처럼 사용하세요",
+  installDesc:
+    "홈 화면에 추가하면 앱스토어 없이도 MANNA를 앱처럼 바로 열 수 있어요.",
+  installButton: "앱으로 설치하기",
+  installAndroid:
+    "Chrome 메뉴(⋮)를 누르고 ‘홈 화면에 추가’를 선택하세요.",
+  installIOS:
+    "Safari 하단의 공유 버튼을 누르고 ‘홈 화면에 추가’를 선택하세요.",
+  installLater: "다음에",
+  attach: "사진 첨부",
+  photoSent: "[사진을 보냈어요]",
+  photoChat: "사진 상담",
+  photoTooLarge: "이미지가 너무 큽니다. 더 작은 사진을 올려주세요.",
+};
+
+const en: Dict = {
+  tagline: "Walk with you, wherever you are",
+  introTitle: "Before you share your heart, we prepare a safe space.",
+  introDesc:
+    "In hard moments, we walk with you without judgment. You are not alone. You are deeply seen, and you matter.",
+  verseText:
+    "You don’t have to have it all figured out. You just have to take the next step.",
+  verseRef: "Unknown",
+  enter: "Start Your Journey",
+  note: "MANNA provides professional emotional support. It is not a substitute for professional medical or psychological treatment.",
+  platform: "An AI companion for the heart",
+  bibleOn: "Deeper On",
+  bibleOff: "Deeper Off",
+  welcomeTitle: "What brings you here today?",
+  welcomeDesc: "Is something weighing on you? Share freely.",
+  placeholder: "Share your heart…",
+  hint: "Enter to send · Shift+Enter for newline",
+  send: "Send",
+  examples: [
+    "😨 I feel anxious and afraid",
+    "💔 My relationship hurts",
+    "😔 I feel lonely",
+    "😡 I am very angry",
+    "😞 I feel like I failed",
+    "🌱 I need to feel grounded",
+  ],
+  newChat: "New Chat",
+  history: "History",
+  rename: "Rename",
+  delete: "Delete",
+  confirmDelete: "Delete this conversation?",
+  noSessions: "No conversations yet.",
+  authTitle: "Before you share your heart, we prepare a safe space.",
+  authDesc: "Sign in to save your conversations and heart journey securely.",
+  google: "Continue with Google",
+  email: "Email",
+  password: "Password",
+  name: "Name (optional)",
+  login: "Log in",
+  signup: "Sign up",
+  loggingIn: "Signing in…",
+  signingUp: "Creating account…",
+  logout: "Log out",
+  toSignup: "Sign up",
+  toLogin: "Log in",
+  haveAccount: "Already have an account?",
+  needAccount: "Don't have an account?",
+  passwordMin: "Password must be at least 6 characters.",
+  invalidEmail: "Please enter a valid email.",
+  authConfigMissing: "Supabase is not configured. Check your env variables.",
+  thinking: "MANNA is reflecting…",
+  donate: "Support",
+  donateTitle: "Support MANNA",
+  donateSub:
+    "Walk alongside MANNA. Your support carries warmth and comfort to more people.",
+  donateKakao: "Give with KakaoPay",
+  donateKakaoDesc: "KakaoPay · quick payment",
+  donatePaypal: "Give with PayPal",
+  donatePaypalDesc: "Cards · from anywhere in the world",
+  donateBankLabel: "Bank transfer",
+  donateBank: "Bank",
+  donateAccount: "Account",
+  donateHolder: "Holder",
+  donateCopy: "Copy",
+  donateCopied: "Copied",
+  donateNote:
+    "Gifts keep MANNA running and help it reach more people. Thank you for walking with us.",
+  installTitle: "Use MANNA like an app",
+  installDesc:
+    "Add MANNA to your home screen to open it like a real app — no app store needed.",
+  installButton: "Install as app",
+  installAndroid:
+    "Open the Chrome menu (⋮) and choose ‘Add to Home screen’.",
+  installIOS:
+    "Tap the Share button in Safari, then choose ‘Add to Home Screen’.",
+  installLater: "Later",
+  attach: "Attach photo",
+  photoSent: "[Sent a photo]",
+  photoChat: "Photo reflection",
+  photoTooLarge: "That image is too large. Please attach a smaller photo.",
+};
+
+const th: Dict = {
+  tagline: "เดินไปกับคุณ ไม่ว่าคุณจะอยู่ที่ใด",
+  introTitle: "ก่อนแบ่งปันหัวใจ เราจะเตรียมพื้นที่ปลอดภัยให้คุณ",
+  introDesc:
+    "ในช่วงเวลายากลำบาก เราเดินไปกับคุณโดยไม่ตัดสิน คุณไม่ได้อยู่ลำพัง คุณถูกมองเห็นอย่างลึกซึ้ง และคุณมีค่า",
+  verseText:
+    "คุณไม่จำเป็นต้องเข้าใจทุกอย่าง เพียงก้าวต่อไปอีกหนึ่งก้าวก็พอ",
+  verseRef: "ไม่ทราบผู้ประพันธ์",
+  enter: "เริ่มการเดินทางของคุณ",
+  note: "MANNA ให้การประคับประคองทางอารมณ์ ไม่ใช่สิ่งทดแทนการรักษาทางการแพทย์หรือจิตวิทยา",
+  platform: "เพื่อนร่วมทางใจด้วย AI",
+  bibleOn: "โหมดลึกซึ้ง เปิด",
+  bibleOff: "โหมดลึกซึ้ง ปิด",
+  welcomeTitle: "วันนี้คุณรู้สึกอย่างไร?",
+  welcomeDesc: "มีเรื่องหนักใจอยู่ไหม? แบ่งปันได้อย่างสบายใจ",
+  placeholder: "แบ่งปันความรู้สึกของคุณ…",
+  hint: "Enter เพื่อส่ง · Shift+Enter ขึ้นบรรทัดใหม่",
+  send: "ส่ง",
+  examples: [
+    "😨 ฉันกังวลและกลัว",
+    "💔 ความสัมพันธ์ทำให้ฉันเหนื่อย",
+    "😔 ฉันรู้สึกเหงา",
+    "😡 ฉันโกรธมาก",
+    "😞 ฉันรู้สึกว่าล้มเหลว",
+    "🌱 ฉันอยากตั้งหลักใจ",
+  ],
+  newChat: "แชทใหม่",
+  history: "ประวัติ",
+  rename: "เปลี่ยนชื่อ",
+  delete: "ลบ",
+  confirmDelete: "ลบบทสนทนานี้หรือไม่?",
+  noSessions: "ยังไม่มีบทสนทนา",
+  authTitle: "ก่อนแบ่งปันหัวใจ เราจะเตรียมพื้นที่ปลอดภัยให้คุณ",
+  authDesc: "เข้าสู่ระบบเพื่อบันทึกบทสนทนาและเส้นทางหัวใจของคุณอย่างปลอดภัย",
+  google: "ดำเนินการต่อด้วย Google",
+  email: "อีเมล",
+  password: "รหัสผ่าน",
+  name: "ชื่อ (ไม่บังคับ)",
+  login: "เข้าสู่ระบบ",
+  signup: "สมัครสมาชิก",
+  loggingIn: "กำลังเข้าสู่ระบบ…",
+  signingUp: "กำลังสร้างบัญชี…",
+  logout: "ออกจากระบบ",
+  toSignup: "สมัครสมาชิก",
+  toLogin: "เข้าสู่ระบบ",
+  haveAccount: "มีบัญชีอยู่แล้ว?",
+  needAccount: "ยังไม่มีบัญชี?",
+  passwordMin: "รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร",
+  invalidEmail: "โปรดกรอกอีเมลที่ถูกต้อง",
+  authConfigMissing: "ยังไม่ได้ตั้งค่า Supabase โปรดตรวจสอบตัวแปรสภาพแวดล้อม",
+  thinking: "MANNA กำลังใคร่ครวญ…",
+  donate: "สนับสนุน",
+  donateTitle: "สนับสนุน MANNA",
+  donateSub:
+    "ร่วมเดินไปกับ MANNA การสนับสนุนของคุณนำความอบอุ่นและการปลอบโยนไปสู่ผู้คนมากขึ้น",
+  donateKakao: "บริจาคผ่าน KakaoPay",
+  donateKakaoDesc: "KakaoPay · ชำระเงินง่าย",
+  donatePaypal: "บริจาคผ่าน PayPal",
+  donatePaypalDesc: "บัตรต่างประเทศ · จากทั่วโลก",
+  donateBankLabel: "โอนผ่านธนาคาร",
+  donateBank: "ธนาคาร",
+  donateAccount: "เลขบัญชี",
+  donateHolder: "ชื่อบัญชี",
+  donateCopy: "คัดลอก",
+  donateCopied: "คัดลอกแล้ว",
+  donateNote:
+    "เงินบริจาคใช้ดำเนินงาน MANNA และช่วยให้เข้าถึงผู้คนมากขึ้น ขอบคุณที่ร่วมเดินไปด้วยกัน",
+  installTitle: "ใช้ MANNA เหมือนแอป",
+  installDesc:
+    "เพิ่ม MANNA ไปที่หน้าจอหลักเพื่อเปิดใช้เหมือนแอปจริง โดยไม่ต้องใช้สโตร์",
+  installButton: "ติดตั้งเป็นแอป",
+  installAndroid:
+    "เปิดเมนู Chrome (⋮) แล้วเลือก ‘เพิ่มไปที่หน้าจอหลัก’",
+  installIOS:
+    "แตะปุ่มแชร์ใน Safari แล้วเลือก ‘เพิ่มไปที่หน้าจอโฮม’",
+  installLater: "ภายหลัง",
+  attach: "แนบรูปภาพ",
+  photoSent: "[ส่งรูปภาพ]",
+  photoChat: "ปรึกษาผ่านรูปภาพ",
+  photoTooLarge: "รูปภาพใหญ่เกินไป กรุณาแนบรูปที่เล็กลง",
+};
+
+const es: Dict = {
+  tagline: "Caminamos contigo, estés donde estés",
+  introTitle: "Antes de compartir tu corazón, preparamos un espacio seguro.",
+  introDesc:
+    "En los momentos difíciles caminamos contigo sin juzgar. No estás solo. Eres visto en profundidad y tu vida importa.",
+  verseText:
+    "No tienes que tenerlo todo resuelto. Solo tienes que dar el siguiente paso.",
+  verseRef: "Anónimo",
+  enter: "Comienza tu camino",
+  note: "MANNA ofrece acompañamiento emocional. No sustituye el tratamiento médico o psicológico profesional.",
+  platform: "Un compañero emocional con IA",
+  bibleOn: "Modo profundo activado",
+  bibleOff: "Modo profundo desactivado",
+  welcomeTitle: "¿Con qué corazón llegas hoy?",
+  welcomeDesc: "¿Hay algo que te pesa? Compártelo con libertad.",
+  placeholder: "Comparte tu corazón…",
+  hint: "Enter para enviar · Shift+Enter para salto de línea",
+  send: "Enviar",
+  examples: [
+    "😨 Siento ansiedad y miedo",
+    "💔 Mi relación me duele",
+    "😔 Me siento solo/a",
+    "😡 Siento mucha ira",
+    "😞 Siento que fracasé",
+    "🌱 Necesito serenarme",
+  ],
+  newChat: "Nuevo chat",
+  history: "Historial",
+  rename: "Renombrar",
+  delete: "Eliminar",
+  confirmDelete: "¿Eliminar esta conversación?",
+  noSessions: "Aún no hay conversaciones.",
+  authTitle: "Antes de compartir tu corazón, preparamos un espacio seguro.",
+  authDesc:
+    "Inicia sesión para guardar tus conversaciones y tu camino emocional.",
+  google: "Continuar con Google",
+  email: "Correo",
+  password: "Contraseña",
+  name: "Nombre (opcional)",
+  login: "Iniciar sesión",
+  signup: "Crear cuenta",
+  loggingIn: "Iniciando sesión…",
+  signingUp: "Creando cuenta…",
+  logout: "Cerrar sesión",
+  toSignup: "Crear cuenta",
+  toLogin: "Iniciar sesión",
+  haveAccount: "¿Ya tienes una cuenta?",
+  needAccount: "¿No tienes una cuenta?",
+  passwordMin: "La contraseña debe tener al menos 6 caracteres.",
+  invalidEmail: "Introduce un correo válido.",
+  authConfigMissing:
+    "Supabase no está configurado. Revisa tus variables de entorno.",
+  thinking: "MANNA está reflexionando…",
+  donate: "Apoyar",
+  donateTitle: "Apoyar a MANNA",
+  donateSub:
+    "Camina junto a MANNA. Tu apoyo lleva calidez y consuelo a más personas.",
+  donateKakao: "Donar con KakaoPay",
+  donateKakaoDesc: "KakaoPay · pago rápido",
+  donatePaypal: "Donar con PayPal",
+  donatePaypalDesc: "Tarjetas · desde cualquier país",
+  donateBankLabel: "Transferencia bancaria",
+  donateBank: "Banco",
+  donateAccount: "Cuenta",
+  donateHolder: "Titular",
+  donateCopy: "Copiar",
+  donateCopied: "Copiado",
+  donateNote:
+    "Las donaciones mantienen MANNA en marcha y ayudan a llegar a más personas. Gracias por acompañarnos.",
+  installTitle: "Usa MANNA como una app",
+  installDesc:
+    "Añade MANNA a tu pantalla de inicio para abrirlo como una app real, sin tienda.",
+  installButton: "Instalar como app",
+  installAndroid:
+    "Abre el menú de Chrome (⋮) y elige ‘Añadir a pantalla de inicio’.",
+  installIOS:
+    "Pulsa el botón Compartir en Safari y elige ‘Añadir a pantalla de inicio’.",
+  installLater: "Más tarde",
+  attach: "Adjuntar foto",
+  photoSent: "[Envió una foto]",
+  photoChat: "Reflexión con foto",
+  photoTooLarge: "Esa imagen es demasiado grande. Adjunta una más pequeña.",
+};
+
+const pt: Dict = {
+  tagline: "Caminhamos com você, onde quer que esteja",
+  introTitle: "Antes de compartilhar seu coração, preparamos um espaço seguro.",
+  introDesc:
+    "Nos momentos difíceis caminhamos com você sem julgamento. Você não está só. Você é profundamente visto e importa.",
+  verseText:
+    "Você não precisa ter tudo resolvido. Só precisa dar o próximo passo.",
+  verseRef: "Autor desconhecido",
+  enter: "Comece sua jornada",
+  note: "MANNA oferece apoio emocional. Não substitui tratamento médico ou psicológico profissional.",
+  platform: "Um companheiro emocional com IA",
+  bibleOn: "Modo profundo ativado",
+  bibleOff: "Modo profundo desativado",
+  welcomeTitle: "Como está o seu coração hoje?",
+  welcomeDesc: "Algo está pesando em você? Compartilhe livremente.",
+  placeholder: "Compartilhe seu coração…",
+  hint: "Enter para enviar · Shift+Enter para nova linha",
+  send: "Enviar",
+  examples: [
+    "😨 Estou ansioso(a) e com medo",
+    "💔 Meu relacionamento dói",
+    "😔 Sinto-me sozinho(a)",
+    "😡 Estou com muita raiva",
+    "😞 Sinto que falhei",
+    "🌱 Preciso me reequilibrar",
+  ],
+  newChat: "Nova conversa",
+  history: "Histórico",
+  rename: "Renomear",
+  delete: "Excluir",
+  confirmDelete: "Excluir esta conversa?",
+  noSessions: "Ainda não há conversas.",
+  authTitle:
+    "Antes de compartilhar seu coração, preparamos um espaço seguro.",
+  authDesc:
+    "Entre para salvar suas conversas e sua jornada emocional com segurança.",
+  google: "Continuar com Google",
+  email: "E-mail",
+  password: "Senha",
+  name: "Nome (opcional)",
+  login: "Entrar",
+  signup: "Criar conta",
+  loggingIn: "Entrando…",
+  signingUp: "Criando conta…",
+  logout: "Sair",
+  toSignup: "Criar conta",
+  toLogin: "Entrar",
+  haveAccount: "Já tem uma conta?",
+  needAccount: "Não tem uma conta?",
+  passwordMin: "A senha deve ter pelo menos 6 caracteres.",
+  invalidEmail: "Digite um e-mail válido.",
+  authConfigMissing:
+    "Supabase não está configurado. Verifique suas variáveis de ambiente.",
+  thinking: "MANNA está refletindo…",
+  donate: "Apoiar",
+  donateTitle: "Apoiar o MANNA",
+  donateSub:
+    "Caminhe ao lado do MANNA. Seu apoio leva acolhimento e conforto a mais pessoas.",
+  donateKakao: "Doar com KakaoPay",
+  donateKakaoDesc: "KakaoPay · pagamento rápido",
+  donatePaypal: "Doar com PayPal",
+  donatePaypalDesc: "Cartões · de qualquer lugar do mundo",
+  donateBankLabel: "Transferência bancária",
+  donateBank: "Banco",
+  donateAccount: "Conta",
+  donateHolder: "Titular",
+  donateCopy: "Copiar",
+  donateCopied: "Copiado",
+  donateNote:
+    "As doações mantêm o MANNA funcionando e ajudam a alcançar mais pessoas. Obrigado por caminhar conosco.",
+  installTitle: "Use o MANNA como um app",
+  installDesc:
+    "Adicione o MANNA à tela inicial para abri-lo como um app de verdade, sem loja.",
+  installButton: "Instalar como app",
+  installAndroid:
+    "Abra o menu do Chrome (⋮) e escolha ‘Adicionar à tela inicial’.",
+  installIOS:
+    "Toque no botão Compartilhar no Safari e escolha ‘Adicionar à Tela de Início’.",
+  installLater: "Depois",
+  attach: "Anexar foto",
+  photoSent: "[Enviou uma foto]",
+  photoChat: "Reflexão com foto",
+  photoTooLarge: "Essa imagem é muito grande. Anexe uma foto menor.",
+};
+
+const hi: Dict = {
+  tagline: "आप जहाँ भी हों, हम साथ चलते हैं",
+  introTitle: "अपना मन साझा करने से पहले, हम सुरक्षित स्थान तैयार करते हैं।",
+  introDesc:
+    "कठिन क्षणों में हम बिना न्याय किए आपके साथ चलते हैं। आप अकेले नहीं हैं। आपको गहराई से देखा जाता है, और आप मायने रखते हैं।",
+  verseText:
+    "सब कुछ समझा हुआ होना ज़रूरी नहीं। बस अगला एक कदम बढ़ाना काफ़ी है।",
+  verseRef: "अज्ञात",
+  enter: "अपनी यात्रा शुरू करें",
+  note: "MANNA भावनात्मक सहारा देता है। यह पेशेवर चिकित्सा या मनोवैज्ञानिक उपचार का विकल्प नहीं है।",
+  platform: "एक AI मन साथी",
+  bibleOn: "गहरा साथ चालू",
+  bibleOff: "गहरा साथ बंद",
+  welcomeTitle: "आज आपका मन कैसा है?",
+  welcomeDesc: "क्या कोई बात आपको भारी लग रही है? खुलकर साझा करें।",
+  placeholder: "अपना मन साझा करें…",
+  hint: "Enter भेजें · Shift+Enter नई पंक्ति",
+  send: "भेजें",
+  examples: [
+    "😨 मुझे चिंता और डर लग रहा है",
+    "💔 रिश्ते से बहुत तकलीफ़ है",
+    "😔 मैं अकेला/अकेली महसूस करता/करती हूँ",
+    "😡 मुझे बहुत गुस्सा आ रहा है",
+    "😞 मुझे लगता है मैं असफल हो गया/गई",
+    "🌱 मुझे मन को थामना है",
+  ],
+  newChat: "नई चैट",
+  history: "इतिहास",
+  rename: "नाम बदलें",
+  delete: "हटाएँ",
+  confirmDelete: "इस बातचीत को हटाएँ?",
+  noSessions: "अभी तक कोई बातचीत नहीं।",
+  authTitle: "अपना मन साझा करने से पहले, हम सुरक्षित स्थान तैयार करते हैं।",
+  authDesc:
+    "अपनी बातचीत और मन की यात्रा सुरक्षित रखने के लिए लॉग इन करें।",
+  google: "Google से जारी रखें",
+  email: "ईमेल",
+  password: "पासवर्ड",
+  name: "नाम (वैकल्पिक)",
+  login: "लॉग इन",
+  signup: "साइन अप",
+  loggingIn: "लॉग इन हो रहा है…",
+  signingUp: "खाता बन रहा है…",
+  logout: "लॉग आउट",
+  toSignup: "साइन अप",
+  toLogin: "लॉग इन",
+  haveAccount: "क्या आपका पहले से खाता है?",
+  needAccount: "क्या आपका खाता नहीं है?",
+  passwordMin: "पासवर्ड कम से कम 6 अक्षरों का होना चाहिए।",
+  invalidEmail: "कृपया सही ईमेल दर्ज करें।",
+  authConfigMissing:
+    "Supabase कॉन्फ़िगर नहीं है। अपने एनवायरनमेंट वेरिएबल जाँचें।",
+  thinking: "MANNA विचार कर रहा है…",
+  donate: "सहयोग",
+  donateTitle: "MANNA का सहयोग करें",
+  donateSub:
+    "MANNA के साथ चलें। आपका सहयोग और अधिक लोगों तक गर्मजोशी और सांत्वना पहुँचाता है।",
+  donateKakao: "KakaoPay से दान करें",
+  donateKakaoDesc: "KakaoPay · त्वरित भुगतान",
+  donatePaypal: "PayPal से दान करें",
+  donatePaypalDesc: "कार्ड · दुनिया में कहीं से भी",
+  donateBankLabel: "बैंक ट्रांसफ़र",
+  donateBank: "बैंक",
+  donateAccount: "खाता",
+  donateHolder: "खाताधारक",
+  donateCopy: "कॉपी",
+  donateCopied: "कॉपी हुआ",
+  donateNote:
+    "दान MANNA के संचालन और अधिक लोगों तक पहुँचने में उपयोग होता है। साथ देने के लिए धन्यवाद।",
+  installTitle: "MANNA को ऐप की तरह इस्तेमाल करें",
+  installDesc:
+    "MANNA को होम स्क्रीन पर जोड़ें और ऐप की तरह सीधे खोलें — किसी स्टोर की ज़रूरत नहीं।",
+  installButton: "ऐप के रूप में इंस्टॉल करें",
+  installAndroid:
+    "Chrome मेनू (⋮) खोलें और ‘होम स्क्रीन पर जोड़ें’ चुनें।",
+  installIOS:
+    "Safari में Share बटन दबाएँ, फिर ‘Add to Home Screen’ चुनें।",
+  installLater: "बाद में",
+  attach: "फ़ोटो जोड़ें",
+  photoSent: "[एक फ़ोटो भेजी]",
+  photoChat: "फ़ोटो पर बातचीत",
+  photoTooLarge: "यह छवि बहुत बड़ी है। कृपया छोटी फ़ोटो जोड़ें।",
+};
+
+const zh: Dict = {
+  tagline: "无论你在何处，我们与你同行",
+  introTitle: "在分享你的内心之前，我们先准备一个安全的空间。",
+  introDesc:
+    "在艰难时刻，我们不评判地陪你同行。你并不孤单，你被深深看见，你很重要。",
+  verseText: "你不必把一切都想明白，只需要迈出下一步。",
+  verseRef: "佚名",
+  enter: "开始你的旅程",
+  note: "MANNA 提供情感陪伴，并不能替代专业的医疗或心理治疗。",
+  platform: "AI 心灵同行",
+  bibleOn: "深度同行 开",
+  bibleOff: "深度同行 关",
+  welcomeTitle: "今天你的心情如何？",
+  welcomeDesc: "有什么让你感到沉重吗？请自在地分享。",
+  placeholder: "分享你的心…",
+  hint: "Enter 发送 · Shift+Enter 换行",
+  send: "发送",
+  examples: [
+    "😨 我感到焦虑和害怕",
+    "💔 关系让我很痛苦",
+    "😔 我感到孤独",
+    "😡 我很生气",
+    "😞 我觉得自己失败了",
+    "🌱 我想让心安定下来",
+  ],
+  newChat: "新对话",
+  history: "历史记录",
+  rename: "重命名",
+  delete: "删除",
+  confirmDelete: "删除这个对话吗？",
+  noSessions: "还没有对话。",
+  authTitle: "在分享你的内心之前，我们先准备一个安全的空间。",
+  authDesc: "登录后可安全保存你的对话和心灵旅程。",
+  google: "使用 Google 继续",
+  email: "邮箱",
+  password: "密码",
+  name: "姓名（可选）",
+  login: "登录",
+  signup: "注册",
+  loggingIn: "正在登录…",
+  signingUp: "正在创建账户…",
+  logout: "退出登录",
+  toSignup: "注册",
+  toLogin: "登录",
+  haveAccount: "已有账户？",
+  needAccount: "还没有账户？",
+  passwordMin: "密码至少需要 6 个字符。",
+  invalidEmail: "请输入有效的邮箱。",
+  authConfigMissing: "Supabase 尚未配置。请检查环境变量。",
+  thinking: "MANNA 正在思考…",
+  donate: "支持",
+  donateTitle: "支持 MANNA",
+  donateSub:
+    "与 MANNA 同行。您的支持把温暖与安慰带给更多的人。",
+  donateKakao: "用 KakaoPay 支持",
+  donateKakaoDesc: "KakaoPay · 便捷支付",
+  donatePaypal: "用 PayPal 支持",
+  donatePaypalDesc: "国际银行卡 · 全球皆可",
+  donateBankLabel: "银行转账",
+  donateBank: "银行",
+  donateAccount: "账号",
+  donateHolder: "户名",
+  donateCopy: "复制",
+  donateCopied: "已复制",
+  donateNote:
+    "捐助用于 MANNA 的运营，并帮助触及更多的人。感谢您与我们同行。",
+  installTitle: "像 App 一样使用 MANNA",
+  installDesc:
+    "把 MANNA 添加到主屏幕，无需应用商店即可像 App 一样直接打开。",
+  installButton: "安装为 App",
+  installAndroid:
+    "打开 Chrome 菜单（⋮），选择“添加到主屏幕”。",
+  installIOS:
+    "在 Safari 点按分享按钮，然后选择“添加到主屏幕”。",
+  installLater: "稍后",
+  attach: "添加照片",
+  photoSent: "[发送了一张照片]",
+  photoChat: "照片倾诉",
+  photoTooLarge: "图片太大了，请上传较小的照片。",
+};
+
+export const DICTS: Record<LangCode, Dict> = { ko, en, th, es, pt, hi, zh };
+
+export function getDict(lang: LangCode): Dict {
+  return DICTS[lang] || DICTS.en;
+}
+
+const SUPPORTED: LangCode[] = ["ko", "en", "th", "es", "pt", "hi", "zh"];
+
+export function normalizeLang(input?: string | null): LangCode {
+  const base = String(input || "en").toLowerCase().split("-")[0];
+  if (base === "zh") return "zh";
+  return (SUPPORTED.includes(base as LangCode) ? base : "en") as LangCode;
+}
+
+/** Heuristic language detection from raw user text. */
+export function detectLangFromText(text: string): LangCode | null {
+  const t = String(text || "");
+  if (/[가-힣]/.test(t)) return "ko";
+  if (/[\u0E00-\u0E7F]/.test(t)) return "th";
+  if (/[\u0900-\u097F]/.test(t)) return "hi";
+  if (/[\u4E00-\u9FFF]/.test(t)) return "zh";
+  if (
+    /\b(estoy|siento|solo|sola|miedo|ansioso|triste|necesito|ayuda|oración|gracias)\b/i.test(
+      t
+    )
+  )
+    return "es";
+  if (
+    /\b(estou|sinto|sozinho|sozinha|medo|triste|preciso|ajuda|oração|obrigado)\b/i.test(
+      t
+    )
+  )
+    return "pt";
+  if (/[a-z]/i.test(t)) return "en";
+  return null;
+}
