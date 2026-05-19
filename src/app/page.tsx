@@ -62,9 +62,6 @@ export default function HomePage() {
           <p className="font-serif text-[15.5px] italic leading-relaxed text-selah-cream/90">
             {t.verseText}
           </p>
-          <cite className="mt-3 block text-[13px] not-italic tracking-wide text-selah-gold">
-            — {t.verseRef}
-          </cite>
         </blockquote>
 
         <Button
