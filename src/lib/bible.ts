@@ -14,13 +14,13 @@ export interface BibleMeta {
 }
 
 export const BIBLE_META: Record<LangCode, BibleMeta> = {
-  ko: { label: "마음에 새길 한 문장", version: "" },
-  en: { label: "A line to hold onto", version: "" },
-  th: { label: "ประโยคที่ควรจดจำ", version: "" },
-  es: { label: "Una frase para sostenerte", version: "" },
-  pt: { label: "Uma frase para guardar", version: "" },
-  hi: { label: "थामे रखने योग्य एक पंक्ति", version: "" },
-  zh: { label: "值得记住的一句话", version: "" },
+  ko: { label: "오늘의 명언", version: "" },
+  en: { label: "A quote for you", version: "" },
+  th: { label: "คำคมสำหรับคุณ", version: "" },
+  es: { label: "Una cita para ti", version: "" },
+  pt: { label: "Uma citação para você", version: "" },
+  hi: { label: "आपके लिए एक उद्धरण", version: "" },
+  zh: { label: "送给你的一句名言", version: "" },
 };
 
 /**
