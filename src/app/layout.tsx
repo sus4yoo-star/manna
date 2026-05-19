@@ -5,7 +5,7 @@ import { ServiceWorker } from "@/components/service-worker";
 import { InstallPrompt } from "@/components/install-prompt";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://amov-manna.netlify.app"),
+  metadataBase: new URL("https://themanna.netlify.app"),
 
   title: {
     default: "MANNA — Walk with you, wherever you are",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "종교와 배경에 상관없이, 힘든 순간 판단 없이 함께 걷는 마음 동행. 당신은 혼자가 아닙니다.",
+    "당신의 마음 동행 · 힘든 순간, 판단하지 않고 함께 걷겠습니다. 당신은 혼자가 아닙니다.",
 
   applicationName: "MANNA",
   manifest: "/manifest.json",
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "MANNA — Walk with you, wherever you are",
     description:
-      "종교와 배경에 상관없이, 힘든 순간 판단 없이 함께 걷는 마음 동행. 당신은 혼자가 아닙니다.",
-    url: "https://amov-manna.netlify.app",
+      "당신의 마음 동행 · 힘든 순간, 판단하지 않고 함께 걷겠습니다. 당신은 혼자가 아닙니다.",
+    url: "https://themanna.netlify.app",
     siteName: "MANNA",
     locale: "ko_KR",
     type: "website",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MANNA — Walk with you, wherever you are",
     description:
-      "종교와 배경에 상관없이, 힘든 순간 판단 없이 함께 걷는 마음 동행. 당신은 혼자가 아닙니다.",
+      "당신의 마음 동행 · 힘든 순간, 판단하지 않고 함께 걷겠습니다. 당신은 혼자가 아닙니다.",
     images: ["/og-image.png"],
   },
 };
