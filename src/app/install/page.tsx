@@ -107,7 +107,7 @@ export default function InstallPage() {
           className="mb-4 text-center text-[13px] tracking-[0.08em] text-selah-cream3 animate-rise"
           style={{ animationDelay: "0.08s" }}
         >
-          당신의 마음 동행
+          당신을 위한 마음 동행
         </p>
         <p
           className="mb-1 text-center text-[17px] font-medium text-selah-cream animate-rise"
