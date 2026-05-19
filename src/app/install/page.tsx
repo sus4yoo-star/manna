@@ -100,9 +100,15 @@ export default function InstallPage() {
         </div>
 
         <h1
-          className="mb-2 text-center font-display text-3xl font-semibold tracking-[0.18em] text-selah-gold animate-rise"
+          className="mb-1.5 text-center font-display text-3xl font-semibold tracking-[0.18em] text-selah-gold animate-rise"
           style={{ animationDelay: "0.05s" }}
         >MANNA</h1>
+        <p
+          className="mb-4 text-center text-[13px] tracking-[0.08em] text-selah-cream3 animate-rise"
+          style={{ animationDelay: "0.08s" }}
+        >
+          당신의 마음 동행
+        </p>
         <p
           className="mb-1 text-center text-[17px] font-medium text-selah-cream animate-rise"
           style={{ animationDelay: "0.1s" }}
