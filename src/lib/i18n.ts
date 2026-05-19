@@ -86,7 +86,7 @@ const ko: Dict = {
   introDesc:
     "힘든 순간, 판단하지 않고 함께 걷겠습니다. 당신은 혼자가 아니며, 깊이 이해받고 있고, 충분히 소중한 사람입니다.",
   verseText:
-    "답을 가지고 오지 않아도 괜찮아요. 그저 마음을 꺼내놓는 것부터 시작해요.",
+    "말이 정리되지 않아도 괜찮아요. 마음은 꺼내는 순간부터 한결 가벼워져요.",
   verseRef: "",
   enter: "여정 시작하기",
   note: "MANNA는 따뜻한 정서적 동행을 제공합니다. 전문적인 의료·심리 치료를 대체하지 않습니다.",
@@ -169,7 +169,7 @@ const en: Dict = {
   introDesc:
     "In hard moments, we walk with you without judgment. You are not alone. You are deeply seen, and you matter.",
   verseText:
-    "You don't have to arrive with answers. Just begin by setting your heart down here.",
+    "Your words don't have to be tidy. A heart feels lighter the moment it's spoken.",
   verseRef: "",
   enter: "Start Your Journey",
   note: "MANNA provides professional emotional support. It is not a substitute for professional medical or psychological treatment.",
@@ -251,7 +251,7 @@ const th: Dict = {
   introDesc:
     "ในช่วงเวลายากลำบาก เราเดินไปกับคุณโดยไม่ตัดสิน คุณไม่ได้อยู่ลำพัง คุณถูกมองเห็นอย่างลึกซึ้ง และคุณมีค่า",
   verseText:
-    "ไม่ต้องมีคำตอบมาก่อนก็ได้ แค่เริ่มจากการวางใจลงตรงนี้",
+    "ไม่ต้องเรียบเรียงคำพูดให้สวยงาม แค่ได้พูดออกมา ใจก็เบาขึ้นแล้ว",
   verseRef: "",
   enter: "เริ่มการเดินทางของคุณ",
   note: "MANNA ให้การประคับประคองทางอารมณ์ ไม่ใช่สิ่งทดแทนการรักษาทางการแพทย์หรือจิตวิทยา",
@@ -333,7 +333,7 @@ const es: Dict = {
   introDesc:
     "En los momentos difíciles caminamos contigo sin juzgar. No estás solo. Eres visto en profundidad y tu vida importa.",
   verseText:
-    "No hace falta que llegues con respuestas. Empieza solo por dejar aquí tu corazón.",
+    "No hace falta que las palabras salgan ordenadas. El corazón se aligera apenas lo expresas.",
   verseRef: "",
   enter: "Comienza tu camino",
   note: "MANNA ofrece acompañamiento emocional. No sustituye el tratamiento médico o psicológico profesional.",
@@ -417,7 +417,7 @@ const pt: Dict = {
   introDesc:
     "Nos momentos difíceis caminhamos com você sem julgamento. Você não está só. Você é profundamente visto e importa.",
   verseText:
-    "Você não precisa chegar com respostas. Comece apenas por deixar seu coração aqui.",
+    "Suas palavras não precisam estar organizadas. O coração já fica mais leve assim que é dito.",
   verseRef: "",
   enter: "Comece sua jornada",
   note: "MANNA oferece apoio emocional. Não substitui tratamento médico ou psicológico profissional.",
@@ -502,7 +502,7 @@ const hi: Dict = {
   introDesc:
     "कठिन क्षणों में हम बिना न्याय किए आपके साथ चलते हैं। आप अकेले नहीं हैं। आपको गहराई से देखा जाता है, और आप मायने रखते हैं।",
   verseText:
-    "जवाब लेकर आना ज़रूरी नहीं। बस अपने मन की बात यहाँ रखने से शुरुआत करें।",
+    "बातें सँवरी हुई न हों तो भी ठीक है। मन कहते ही थोड़ा हल्का हो जाता है।",
   verseRef: "",
   enter: "अपनी यात्रा शुरू करें",
   note: "MANNA भावनात्मक सहारा देता है। यह पेशेवर चिकित्सा या मनोवैज्ञानिक उपचार का विकल्प नहीं है।",
@@ -585,7 +585,7 @@ const zh: Dict = {
   introTitle: "在分享你的内心之前，我们先准备一个安全的空间。",
   introDesc:
     "在艰难时刻，我们不评判地陪你同行。你并不孤单，你被深深看见，你很重要。",
-  verseText: "你不必带着答案而来，只需先把心放在这里。",
+  verseText: "话不必说得周全。心事，说出口的那一刻就轻了一些。",
   verseRef: "",
   enter: "开始你的旅程",
   note: "MANNA 提供情感陪伴，并不能替代专业的医疗或心理治疗。",
