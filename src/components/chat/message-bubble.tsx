@@ -59,7 +59,7 @@ function labels(lang: LangCode) {
   if (lang === "ko") {
     return {
       empathy: "공감",
-      scripture: "오늘의 명언",
+      scripture: "오늘의 질문",
       direction: "지금의 방향",
       hope: "소망",
       prayer: "당신에게 건네는 말",
@@ -68,7 +68,7 @@ function labels(lang: LangCode) {
   if (lang === "th") {
     return {
       empathy: "ความเข้าใจ",
-      scripture: "คำคมสำหรับคุณ",
+      scripture: "คำถามสำหรับคุณ",
       direction: "ทิศทางตอนนี้",
       hope: "ความหวัง",
       prayer: "คำพูดสองสามคำสำหรับคุณ",
@@ -77,7 +77,7 @@ function labels(lang: LangCode) {
   if (lang === "es") {
     return {
       empathy: "Empatía",
-      scripture: "Una cita para ti",
+      scripture: "Una pregunta para ti",
       direction: "Hacia dónde ir",
       hope: "Esperanza",
       prayer: "Unas palabras para ti",
@@ -86,7 +86,7 @@ function labels(lang: LangCode) {
   if (lang === "pt") {
     return {
       empathy: "Empatia",
-      scripture: "Uma citação para você",
+      scripture: "Uma pergunta para você",
       direction: "Para onde ir",
       hope: "Esperança",
       prayer: "Algumas palavras para você",
@@ -95,7 +95,7 @@ function labels(lang: LangCode) {
   if (lang === "hi") {
     return {
       empathy: "सहानुभूति",
-      scripture: "आपके लिए एक उद्धरण",
+      scripture: "आपके लिए एक सवाल",
       direction: "अभी की दिशा",
       hope: "आशा",
       prayer: "आपके लिए कुछ शब्द",
@@ -104,7 +104,7 @@ function labels(lang: LangCode) {
   if (lang === "zh") {
     return {
       empathy: "共情",
-      scripture: "送给你的一句名言",
+      scripture: "给你的一个问题",
       direction: "此刻的方向",
       hope: "盼望",
       prayer: "想对你说的几句话",
@@ -113,7 +113,7 @@ function labels(lang: LangCode) {
 
   return {
     empathy: "Empathy",
-    scripture: "A quote for you",
+    scripture: "A question for you",
     direction: "Direction",
     hope: "Hope",
     prayer: "A few words for you",
@@ -204,12 +204,17 @@ export function MessageBubble({
         {parsed.scripture && (
           <Section label={l.scripture} tone="scripture">
             <p className="mb-3 text-[16px] leading-8 text-selah-cream1">
-              “{parsed.scripture.text}”
+              {parsed.scripture.text}
             </p>
-            <p className="mb-3 text-sm text-selah-gold">
-              — {parsed.scripture.ref}
-              {bm.version ? ` (${bm.version})` : ""}
-            </p>
+            {(() => {
+              const ref = parsed.scripture.ref.replace(/^[\s\-–—·]+/, "").trim();
+              return ref ? (
+                <p className="mb-3 text-sm text-selah-gold">
+                  — {ref}
+                  {bm.version ? ` (${bm.version})` : ""}
+                </p>
+              ) : null;
+            })()}
             {parsed.scripture.application && (
               <p className="border-t border-selah-gold/10 pt-3 text-[14px] leading-7 text-selah-cream2">
                 {parsed.scripture.application}
