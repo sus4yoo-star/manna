@@ -173,30 +173,31 @@ ${userText}
 Latest assistant response:
 ${assistantText}`;
 
-    const res = await fetch("https://api.openai.com/v1/chat/completions", {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
         model,
         temperature: 0.2,
-        max_tokens: 600,
-        messages: [
-          {
-            role: "system",
-            content:
-              "You are a careful memory updater for an emotional-support companion app. Return only valid JSON. Be conservative and privacy-preserving.",
-          },
-          { role: "user", content: prompt },
-        ],
+        max_tokens: 700,
+        system:
+          "You are a careful memory updater for an emotional-support companion app. Return only valid JSON, with no preamble, no explanation, and no Markdown fences. Be conservative and privacy-preserving.",
+        messages: [{ role: "user", content: prompt }],
       }),
     });
 
     if (!res.ok) return;
     const json = await res.json();
-    const content = json?.choices?.[0]?.message?.content || "";
+    const content = Array.isArray(json?.content)
+      ? json.content
+          .filter((b: any) => b?.type === "text")
+          .map((b: any) => b.text || "")
+          .join("")
+      : "";
     const parsed = safeJsonParse(content);
     if (!parsed) return;
 

@@ -1,7 +1,7 @@
 # SELAH 2.0 — Deployment Guide
 
 A global Christian emotional-support + Bible-reflection companion, powered by AI.
-Built with **Next.js 15 (App Router) · TypeScript · Tailwind CSS · shadcn/ui · Supabase · OpenAI** and deployable to **Netlify** as a PWA.
+Built with **Next.js 15 (App Router) · TypeScript · Tailwind CSS · shadcn/ui · Supabase · Claude (Anthropic)** and deployable to **Netlify** as a PWA.
 
 This guide takes you from zero to a live site. Expect ~15 minutes.
 
@@ -10,7 +10,7 @@ This guide takes you from zero to a live site. Expect ~15 minutes.
 ## 0. What you need
 
 - A free **Supabase** account → https://supabase.com
-- An **OpenAI** API key with billing enabled → https://platform.openai.com
+- An **Anthropic (Claude)** API key with billing enabled → https://console.anthropic.com
 - A **Netlify** account → https://netlify.com
 - (Optional) a **Google Cloud** project for Google login
 
@@ -67,8 +67,8 @@ Put this project in a Git repo (GitHub / GitLab / Bitbucket).
 
 | Key | Value |
 |---|---|
-| `OPENAI_API_KEY` | your OpenAI secret key (`sk-...`) |
-| `OPENAI_MODEL` | `gpt-4o-mini` (optional; this is the default) |
+| `ANTHROPIC_API_KEY` | your Anthropic (Claude) secret key (`sk-ant-...`) |
+| `ANTHROPIC_MODEL` | optional. Default is `claude-sonnet-4-6`. Set to `claude-opus-4-7` for the deepest, highest-quality responses (slower + more expensive), or a cheaper model to reduce cost. |
 | `NEXT_PUBLIC_SUPABASE_URL` | your Supabase Project URL |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | your Supabase anon public key |
 | `SUPABASE_URL` | same as the URL above |
@@ -109,7 +109,7 @@ src/
     login/page.tsx        Google + email auth (signup logs in instantly)
     chat/page.tsx         protected; loads the user's sessions server-side
     auth/callback/route   OAuth code → session exchange
-    api/chat/route.ts     server-only OpenAI proxy (streaming)
+    api/chat/route.ts     server-only Claude proxy (streaming)
   components/
     chat/                 sidebar, window, message card, input, toggles
     ui/                   shadcn primitives (button, input, switch, …)
@@ -124,7 +124,7 @@ src/
 ```
 
 - **Auth**: Supabase Auth with cookie sessions via `@supabase/ssr`. Sessions auto-restore; routes under `/chat` are protected by middleware.
-- **AI engine**: `OPENAI_API_KEY` is used **only** on the server. Each message is classified into **Type A (emotional)**, **Type B (Bible)** or **Type C (general)**; the system prompt enforces the right response shape — empathy only for Type A, direct explanation for Type B, direct answers for Type C. The model streams back and is parsed into structured sections client-side.
+- **AI engine**: `ANTHROPIC_API_KEY` is used **only** on the server. Responses come from Claude (Anthropic Messages API, streamed). Each message is classified into **Type A (emotional)**, **Type B (Bible)** or **Type C (general)**; the system prompt enforces the right response shape — empathy only for Type A, direct explanation for Type B, direct answers for Type C. The model streams back and is parsed into structured sections client-side.
 - **Bible Mode**: a top-right toggle. When on, the reply appends a verse in the **selected language's** standard version — Korean 개역개정 (no trailing punctuation), English NIV, Thai Thai Standard Version, Spanish Reina-Valera, Portuguese Almeida, Hindi OV Hindi, Chinese Chinese Union Version.
 - **Languages**: Korean, English, Thai, Spanish, Portuguese, Hindi, Chinese. Browser language is detected, the choice is persisted to `localStorage` and synced to the user's profile. UI, buttons, placeholders, emotion chips and loading states are all localized; emotion chips show only for the selected language.
 - **Data**: every user only ever sees their own rows — enforced by Postgres RLS, not just the UI.
@@ -138,7 +138,7 @@ src/
 |---|---|
 | Login page says "Supabase is not configured" | The `NEXT_PUBLIC_SUPABASE_*` vars are missing/blank on Netlify. Add them and redeploy. |
 | Signup asks to confirm email | You skipped **step 1c**. Disable "Confirm email" in Supabase. |
-| Chat replies with "OpenAI authentication failed (401)" | `OPENAI_API_KEY` is wrong or has no billing. |
+| Chat replies with "Anthropic authentication failed (401)" | `ANTHROPIC_API_KEY` is wrong or has no billing. |
 | Google button does nothing / redirect error | Redirect URLs in Supabase don't match your live domain (step 2e). |
 | Netlify build fails on "secret detected" | Confirm `netlify.toml` still has `SECRETS_SCAN_ENABLED = "false"`. |
 | Sessions/messages don't save | Re-run `0001_init.sql`; confirm RLS policies were created. |

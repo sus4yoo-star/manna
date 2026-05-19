@@ -3,6 +3,11 @@ import { buildSystemPrompt, classifyIntent } from "@/lib/prompt";
 import { normalizeLang, detectLangFromText } from "@/lib/i18n";
 import { createClient } from "@/lib/supabase/server";
 import { loadUserMemory, updateUserMemory } from "@/lib/selah-memory";
+import {
+  ANTHROPIC_VERSION,
+  defaultModel,
+  splitDataUrl,
+} from "@/lib/anthropic";
 import type { LangCode } from "@/lib/types";
 
 export const runtime = "nodejs";
@@ -60,12 +65,12 @@ export async function POST(req: NextRequest) {
     return new Response("Bad request", { status: 400 });
   }
 
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     return new Response(
       JSON.stringify({
         error:
-          "OPENAI_API_KEY is not configured. Add it in your environment variables.",
+          "ANTHROPIC_API_KEY is not configured. Add it in your environment variables.",
       }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
@@ -92,15 +97,14 @@ export async function POST(req: NextRequest) {
   const bibleMode = Boolean(body.bibleMode);
   let intent = classifyIntent(userText);
   // A screenshot (often a KakaoTalk/messenger conversation) without a
-  // clear Bible/general request is almost always an emotional situation.
+  // clear reflective/general request is almost always an emotional one.
   if (hasImage && intent === "general") intent = "emotional";
   const memory = await loadUserMemory(supabase, userId);
   const system = buildSystemPrompt({ lang, bibleMode, intent, hasImage, memory });
 
-  const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
+  const model = defaultModel();
 
-  // Build the upstream messages. The latest user turn carries the image
-  // as a vision content block when present.
+  // Find the latest user turn (the one that may carry an image).
   let lastUserIdx = -1;
   for (let i = messages.length - 1; i >= 0; i--) {
     if (messages[i].role === "user") {
@@ -108,42 +112,81 @@ export async function POST(req: NextRequest) {
       break;
     }
   }
-  const chatMessages = messages.map((m, i) => {
-    if (hasImage && i === lastUserIdx) {
-      return {
-        role: m.role,
-        content: [
-          {
-            type: "text",
-            text:
-              String(m.content || "") ||
-              "Please look at the attached image and respond.",
+
+  // Anthropic requires the conversation to begin with a user turn and to
+  // alternate cleanly. Drop any leading assistant messages from the slice
+  // and collapse accidental consecutive same-role turns.
+  let firstUser = messages.findIndex((m) => m.role === "user");
+  if (firstUser < 0) firstUser = messages.length;
+  const trimmed = messages.slice(firstUser);
+  const offset = firstUser;
+
+  const claudeMessages: any[] = [];
+  trimmed.forEach((m, idx) => {
+    const absoluteIdx = idx + offset;
+    const text = String(m.content || "").trim();
+
+    let content: any;
+    if (hasImage && absoluteIdx === lastUserIdx) {
+      const parsed = splitDataUrl(image);
+      const blocks: any[] = [];
+      if (parsed) {
+        blocks.push({
+          type: "image",
+          source: {
+            type: "base64",
+            media_type: parsed.mediaType,
+            data: parsed.data,
           },
-          { type: "image_url", image_url: { url: image, detail: "auto" } },
-        ],
-      };
+        });
+      }
+      blocks.push({
+        type: "text",
+        text: text || "Please look carefully at the attached image and respond.",
+      });
+      content = blocks;
+    } else {
+      content = text || "…";
     }
-    return { role: m.role, content: String(m.content || "") };
+
+    const prev = claudeMessages[claudeMessages.length - 1];
+    if (prev && prev.role === m.role) {
+      // Merge a stray same-role turn so alternation stays valid.
+      if (typeof prev.content === "string" && typeof content === "string") {
+        prev.content = `${prev.content}\n\n${content}`;
+      } else {
+        const a = Array.isArray(prev.content)
+          ? prev.content
+          : [{ type: "text", text: String(prev.content) }];
+        const b = Array.isArray(content)
+          ? content
+          : [{ type: "text", text: String(content) }];
+        prev.content = [...a, ...b];
+      }
+      return;
+    }
+    claudeMessages.push({ role: m.role, content });
   });
 
-  const upstream = await fetch("https://api.openai.com/v1/chat/completions", {
+  if (claudeMessages.length === 0 || claudeMessages[0].role !== "user") {
+    return new Response("No messages", { status: 400 });
+  }
+
+  const upstream = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
+      "x-api-key": apiKey,
+      "anthropic-version": ANTHROPIC_VERSION,
     },
     body: JSON.stringify({
       model,
       stream: true,
+      // Warm and varied without drifting; Anthropic caps temperature at 1.
       temperature: 0.85,
-      top_p: 0.95,
-      presence_penalty: 0.4,
-      frequency_penalty: 0.35,
-      max_tokens: 1500,
-      messages: [
-        { role: "system", content: system },
-        ...chatMessages,
-      ],
+      max_tokens: 2048,
+      system,
+      messages: claudeMessages,
     }),
   });
 
@@ -160,14 +203,14 @@ export async function POST(req: NextRequest) {
       JSON.stringify({
         error:
           status === 401
-            ? "OpenAI authentication failed (401). Check OPENAI_API_KEY."
-            : `OpenAI request failed${detail ? `: ${detail}` : "."}`,
+            ? "Anthropic authentication failed (401). Check ANTHROPIC_API_KEY."
+            : `Anthropic request failed${detail ? `: ${detail}` : "."}`,
       }),
       { status, headers: { "Content-Type": "application/json" } }
     );
   }
 
-  // Transform OpenAI's SSE stream into a clean text stream of content
+  // Transform Anthropic's SSE stream into a clean text stream of content
   // deltas. The client renders the typing animation and parses the
   // structured XML once complete.
   const encoder = new TextEncoder();
@@ -178,6 +221,21 @@ export async function POST(req: NextRequest) {
       const reader = upstream.body!.getReader();
       let buffer = "";
       let assistantText = "";
+
+      const persist = async () => {
+        if (!assistantText.trim()) return;
+        await updateUserMemory({
+          supabase,
+          userId,
+          apiKey,
+          model,
+          lang,
+          previousMemory: memory,
+          userText,
+          assistantText,
+        });
+      };
+
       try {
         while (true) {
           const { done, value } = await reader.read();
@@ -189,28 +247,37 @@ export async function POST(req: NextRequest) {
 
           for (const raw of lines) {
             const line = raw.trim();
+            // Anthropic SSE: lines are "event: <name>" and "data: <json>".
             if (!line.startsWith("data:")) continue;
             const data = line.slice(5).trim();
-            if (data === "[DONE]") {
-              await updateUserMemory({
-                supabase,
-                userId,
-                apiKey,
-                model,
-                lang,
-                previousMemory: memory,
-                userText,
-                assistantText,
-              });
-              controller.close();
-              return;
-            }
+            if (!data || data === "[DONE]") continue;
+
             try {
               const json = JSON.parse(data);
-              const delta = json?.choices?.[0]?.delta?.content;
-              if (delta) {
-                assistantText += delta;
-                controller.enqueue(encoder.encode(delta));
+              const type = json?.type;
+
+              if (type === "content_block_delta") {
+                const delta = json?.delta;
+                if (delta?.type === "text_delta" && delta.text) {
+                  assistantText += delta.text;
+                  controller.enqueue(encoder.encode(delta.text));
+                }
+              } else if (type === "message_stop") {
+                await persist();
+                controller.close();
+                return;
+              } else if (type === "error") {
+                // Surface a short, safe note instead of a silent stop.
+                const msg = json?.error?.message
+                  ? ` (${json.error.message})`
+                  : "";
+                if (!assistantText) {
+                  controller.enqueue(
+                    encoder.encode(
+                      `<direction>잠시 문제가 생겼어요. 곧 다시 시도해 주세요.${msg}</direction>`
+                    )
+                  );
+                }
               }
             } catch {
               /* skip malformed chunk */
@@ -220,18 +287,7 @@ export async function POST(req: NextRequest) {
       } catch {
         /* upstream closed */
       } finally {
-        if (assistantText.trim()) {
-          await updateUserMemory({
-            supabase,
-            userId,
-            apiKey,
-            model,
-            lang,
-            previousMemory: memory,
-            userText,
-            assistantText,
-          });
-        }
+        await persist();
         controller.close();
       }
     },
@@ -244,6 +300,7 @@ export async function POST(req: NextRequest) {
       "X-Accel-Buffering": "no",
       "X-Manna-Intent": intent,
       "X-Manna-Lang": lang,
+      "X-Manna-Model": model,
     },
   });
 }
