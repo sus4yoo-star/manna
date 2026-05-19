@@ -59,7 +59,7 @@ function labels(lang: LangCode) {
   if (lang === "ko") {
     return {
       empathy: "공감",
-      scripture: "마음에 새길 한 문장",
+      scripture: "오늘의 명언",
       direction: "지금의 방향",
       hope: "소망",
       prayer: "당신에게 건네는 말",
@@ -68,7 +68,7 @@ function labels(lang: LangCode) {
   if (lang === "th") {
     return {
       empathy: "ความเข้าใจ",
-      scripture: "ประโยคที่ควรจดจำ",
+      scripture: "คำคมสำหรับคุณ",
       direction: "ทิศทางตอนนี้",
       hope: "ความหวัง",
       prayer: "คำพูดสองสามคำสำหรับคุณ",
@@ -77,7 +77,7 @@ function labels(lang: LangCode) {
   if (lang === "es") {
     return {
       empathy: "Empatía",
-      scripture: "Una frase para sostenerte",
+      scripture: "Una cita para ti",
       direction: "Hacia dónde ir",
       hope: "Esperanza",
       prayer: "Unas palabras para ti",
@@ -86,7 +86,7 @@ function labels(lang: LangCode) {
   if (lang === "pt") {
     return {
       empathy: "Empatia",
-      scripture: "Uma frase para guardar",
+      scripture: "Uma citação para você",
       direction: "Para onde ir",
       hope: "Esperança",
       prayer: "Algumas palavras para você",
@@ -95,7 +95,7 @@ function labels(lang: LangCode) {
   if (lang === "hi") {
     return {
       empathy: "सहानुभूति",
-      scripture: "थामे रखने योग्य एक पंक्ति",
+      scripture: "आपके लिए एक उद्धरण",
       direction: "अभी की दिशा",
       hope: "आशा",
       prayer: "आपके लिए कुछ शब्द",
@@ -104,7 +104,7 @@ function labels(lang: LangCode) {
   if (lang === "zh") {
     return {
       empathy: "共情",
-      scripture: "值得记住的一句话",
+      scripture: "送给你的一句名言",
       direction: "此刻的方向",
       hope: "盼望",
       prayer: "想对你说的几句话",
@@ -113,7 +113,7 @@ function labels(lang: LangCode) {
 
   return {
     empathy: "Empathy",
-    scripture: "A line to hold onto",
+    scripture: "A quote for you",
     direction: "Direction",
     hope: "Hope",
     prayer: "A few words for you",
