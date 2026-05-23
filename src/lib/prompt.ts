@@ -1,7 +1,7 @@
 import type { IntentType, LangCode } from "./types";
 import { bibleMeta } from "./bible";
-import type { SelahMemory } from "./selah-memory";
-import { renderMemoryForPrompt } from "./selah-memory";
+import type { MannaMemory } from "./manna-memory";
+import { renderMemoryForPrompt } from "./manna-memory";
 
 /**
  * Lightweight server-side pre-classifier. The model does the final,
@@ -36,7 +36,7 @@ interface PromptOpts {
   bibleMode: boolean;
   intent: IntentType;
   hasImage?: boolean;
-  memory?: SelahMemory | null;
+  memory?: MannaMemory | null;
 }
 
 /**

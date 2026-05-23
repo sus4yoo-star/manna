@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import type { LangCode } from "@/lib/types";
-import { getDict, normalizeLang, type Dict } from "@/lib/i18n";
+import { getDict, normalizeLang, isRTL, type Dict } from "@/lib/i18n";
 
 interface LanguageContextValue {
   lang: LangCode;
@@ -12,7 +12,7 @@ interface LanguageContextValue {
 
 const LanguageContext = React.createContext<LanguageContextValue | null>(null);
 
-const STORAGE_KEY = "selah_lang";
+const STORAGE_KEY = "manna_lang";
 // One full year — enough that returning users always get SSR in their language.
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 
@@ -44,7 +44,7 @@ export function LanguageProvider({
 }) {
   // Default to "ko" (matches <html lang="ko"> in the root layout) so the
   // first server-rendered HTML lands in Korean instead of flashing English
-  // for Korean users. When the server reads a `selah_lang` cookie it passes
+  // for Korean users. When the server reads a `manna_lang` cookie it passes
   // it in via `initialLang` and SSR is already in that language.
   const [lang, setLangState] = React.useState<LangCode>(
     initialLang ? normalizeLang(initialLang) : "ko"
@@ -97,6 +97,7 @@ export function LanguageProvider({
   React.useEffect(() => {
     if (typeof document !== "undefined") {
       document.documentElement.lang = lang;
+      document.documentElement.dir = isRTL(lang) ? "rtl" : "ltr";
     }
   }, [lang]);
 

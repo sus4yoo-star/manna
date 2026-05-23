@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import { buildSystemPrompt, classifyIntent } from "@/lib/prompt";
 import { normalizeLang, detectLangFromText } from "@/lib/i18n";
 import { createClient } from "@/lib/supabase/server";
-import { loadUserMemory, updateUserMemory } from "@/lib/selah-memory";
+import { loadUserMemory, updateUserMemory } from "@/lib/manna-memory";
 import {
   ANTHROPIC_VERSION,
   defaultModel,
