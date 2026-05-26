@@ -4,12 +4,13 @@ import * as React from "react";
 import type { ChatMessage } from "@/lib/types";
 import { useLanguage } from "@/components/language-provider";
 import { LanguageSelector } from "@/components/language-selector";
-import { FontSizeControl } from "@/components/chat/font-size-control";
+import { ViewSettingsMenu } from "@/components/chat/view-settings-menu";
 import { PrayerMenu } from "@/components/chat/prayer-menu";
 import { AccountMenu } from "@/components/chat/account-menu";
 import { MessageBubble } from "@/components/chat/message-bubble";
 import { ChatInput } from "@/components/chat/chat-input";
 import { CrisisCard } from "@/components/chat/crisis-card";
+import { CrossLinkCard } from "@/components/chat/cross-link-card";
 import { Loader2, ChevronDown } from "lucide-react";
 
 export function ChatWindow({
@@ -21,6 +22,7 @@ export function ChatWindow({
   menuButton,
   crisisVisible,
   onDismissCrisis,
+  sessionCount,
 }: {
   email: string;
   messages: ChatMessage[];
@@ -30,6 +32,7 @@ export function ChatWindow({
   menuButton: React.ReactNode;
   crisisVisible?: boolean;
   onDismissCrisis?: () => void;
+  sessionCount?: number;
 }) {
   const { t, lang } = useLanguage();
   const scrollRef = React.useRef<HTMLDivElement>(null);
@@ -97,7 +100,7 @@ export function ChatWindow({
           <div className="font-display text-xl font-semibold tracking-[0.16em] text-selah-gold lg:hidden">MANNA</div>
           <div className="ml-auto flex items-center gap-2">
             <PrayerMenu />
-            <FontSizeControl />
+            <ViewSettingsMenu />
             <LanguageSelector compact />
             <AccountMenu email={email} />
           </div>
@@ -110,11 +113,13 @@ export function ChatWindow({
           ref={scrollRef}
           onScroll={updatePinned}
           className="selah-scroll h-full overflow-y-auto px-4 py-6"
-          // Lets descendants opt into the responsive size via the variable.
-          style={{ ["--chat-font-size" as any]: undefined }}
         >
         {crisisVisible && onDismissCrisis && (
           <CrisisCard onClose={onDismissCrisis} />
+        )}
+
+        {typeof sessionCount === "number" && (
+          <CrossLinkCard sessionCount={sessionCount} />
         )}
 
         {loadingMsgs ? (
