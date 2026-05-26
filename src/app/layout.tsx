@@ -66,8 +66,8 @@ export const viewport: Viewport = {
   themeColor: "#03212a",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  // Allow pinch-zoom for accessibility — MANNA must stay reachable for
+  // users who rely on the browser zoom (older eyes, motor-impaired users).
   viewportFit: "cover",
 };
 

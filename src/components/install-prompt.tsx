@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { X, Share, Plus, Download } from "lucide-react";
 import { useLanguage } from "@/components/language-provider";
 
-const HIDE_KEY = "selah_install_prompt_hidden_until";
+const HIDE_KEY = "manna_install_prompt_hidden_until";
 const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
 
 type BeforeInstallPromptEvent = Event & {
