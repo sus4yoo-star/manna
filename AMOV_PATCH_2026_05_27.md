@@ -92,3 +92,22 @@ ANTHROPIC_MODEL=                  (optional; default claude-sonnet-4-6)
 - Multilingual crisis hotlines beyond KR/EN — easy to add country-by-country in `hotlinesFor()`
 - Pause-and-resume voice (current implementation is single-turn)
 - Server-side crisis logging — intentional. Detection stays client-side for privacy.
+
+---
+
+## 2026.05.27 evening fixes (after first user feedback)
+
+### 1. SSR error recovery
+- `src/app/error.tsx` added — root error boundary. Replaces the white
+  "Application error" screen with a calm on-brand recovery card.
+- `src/app/layout.tsx` cookies() access wrapped in try/catch.
+
+### 2. Font-size now scales the whole chat area
+- Welcome heading, description, examples buttons, and the "thinking…"
+  indicator all read `var(--chat-font-size)`.
+- Steps widened: 14px / 17px / 21px (was 14/16/19).
+
+### 3. Positive emotions in welcome examples
+- Removed 화가 나요 / 실패한 것 같아요.
+- Added 🥹 감사한 일이 있어요 / ✨ 기쁜 일을 나누고 싶어요.
+- English equivalents updated symmetrically.
