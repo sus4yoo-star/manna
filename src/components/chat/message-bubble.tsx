@@ -103,12 +103,13 @@ function PrayerShareActions({
     try {
       const svg = buildCardSvg({
         variant,
+        shape: "prayer",
         brandLabel,
         tagline: variant === "selah" ? "Pause before you respond" : "Walk with you",
         body: text,
-        footer: "Powered by AMOV",
+        footer: variant === "selah" ? "selah.theamov.com" : "manna.amov.kr",
       });
-      const blob = await svgToPngBlob(svg, 1080);
+      const blob = await svgToPngBlob(svg);
       const file = new File([blob], `${variant}-${Date.now()}.png`, {
         type: "image/png",
       });
