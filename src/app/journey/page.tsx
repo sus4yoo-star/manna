@@ -33,7 +33,8 @@ import { AmovFooter } from "@/components/amov-footer";
  * mobile (KakaoTalk / IG / Messages), download fallback on desktop.
  */
 
-const RANGE_OPTIONS: { value: 30 | 90; ko: string; en: string }[] = [
+const RANGE_OPTIONS: { value: 7 | 30 | 90; ko: string; en: string }[] = [
+  { value: 7, ko: "지난 7일", en: "Last 7 days" },
   { value: 30, ko: "지난 30일", en: "Last 30 days" },
   { value: 90, ko: "지난 90일", en: "Last 90 days" },
 ];
@@ -101,7 +102,7 @@ export default function JourneyPage() {
   const [loading, setLoading] = React.useState(true);
   const [sharing, setSharing] = React.useState(false);
   const [shared, setShared] = React.useState(false);
-  const [range, setRange] = React.useState<30 | 90>(30);
+  const [range, setRange] = React.useState<7 | 30 | 90>(30);
 
   React.useEffect(() => {
     let cancelled = false;
@@ -157,8 +158,8 @@ export default function JourneyPage() {
     try {
       const rangeLabel =
         lang === "ko"
-          ? range === 30 ? "지난 30일" : "지난 90일"
-          : range === 30 ? "Last 30 days" : "Last 90 days";
+          ? range === 7 ? "지난 7일" : range === 30 ? "지난 30일" : "지난 90일"
+          : range === 7 ? "Last 7 days" : range === 30 ? "Last 30 days" : "Last 90 days";
 
       const svg = buildJourneyCardSvg({
         variant: "manna",
@@ -205,7 +206,7 @@ export default function JourneyPage() {
 
   return (
     <main className="selah-aurora selah-scroll min-h-dvh overflow-y-auto pb-12">
-      <header className="sticky top-0 z-10 border-b border-white/[0.06] bg-selah-bg/85 backdrop-blur">
+      <header className="sticky top-0 z-10 border-b border-white/[0.06] bg-selah-bg/85 backdrop-blur pt-[env(safe-area-inset-top)]">
         <div className="mx-auto flex max-w-3xl items-center gap-3 px-5 py-3">
           <Link
             href="/chat"
