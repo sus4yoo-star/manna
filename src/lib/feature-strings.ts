@@ -236,7 +236,7 @@ const ko: FeatureStrings = {
   journalExporting: "만드는 중…",
   journalReady: "저장됨",
 
-  reminderTitle: "기도 리마인더",
+  reminderTitle: "마음 다잡는 시간",
   reminderEnable: "리마인더 켜기",
   reminderDisable: "리마인더 끄기",
   reminderTime: "알림 시간",
@@ -361,7 +361,7 @@ const en: FeatureStrings = {
   journalExporting: "Building…",
   journalReady: "Saved",
 
-  reminderTitle: "Prayer Reminders",
+  reminderTitle: "Mindful Reminders",
   reminderEnable: "Enable reminders",
   reminderDisable: "Disable reminders",
   reminderTime: "Time",
