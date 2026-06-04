@@ -1,0 +1,85 @@
+name: 주간 코드 점검
+
+# 매주 월요일 00:00 UTC = 09:00 KST
+# workflow_dispatch로 수동 실행도 가능
+on:
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+    inputs:
+      report_date:
+        description: '리포트 날짜 (YYYY-MM-DD). 빈칸이면 오늘(KST) 날짜 사용.'
+        required: false
+        default: ''
+
+jobs:
+  weekly-review:
+    name: 코드 점검 및 리포트 PR 생성
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Node.js 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 날짜 결정 (KST 기준)
+        id: date
+        run: |
+          if [ -n "${{ github.event.inputs.report_date }}" ]; then
+            echo "date=${{ github.event.inputs.report_date }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "date=$(TZ='Asia/Seoul' date +'%Y-%m-%d')" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: 새 브랜치 생성 (main 기준)
+        run: |
+          BRANCH="report/weekly-${{ steps.date.outputs.date }}"
+          git checkout -b "$BRANCH"
+          echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
+
+      - name: 주간 리포트 생성
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          REPORT_DATE: ${{ steps.date.outputs.date }}
+        run: node scripts/weekly-review.mjs
+
+      - name: 리포트 커밋 및 푸시
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add reports/
+          git commit -m "docs: 주간 점검 리포트 ${{ steps.date.outputs.date }}"
+          git push -u origin "$BRANCH"
+
+      - name: Pull Request 생성
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --title "📋 주간 점검 리포트 — ${{ steps.date.outputs.date }}" \
+            --body "$(cat <<'EOF'
+          ## 만나(MANNA) 주간 자동 점검 리포트
+
+          매주 월요일 오전 9시(KST)에 자동으로 생성되는 코드 점검 리포트입니다.
+
+          - **점검일**: ${{ steps.date.outputs.date }}
+          - **점검 모델**: Claude Opus (claude-opus-4-8)
+          - **변경 내용**: 리포트 파일 추가만 포함 (코드 수정 없음)
+
+          리포트 파일: `reports/weekly-${{ steps.date.outputs.date }}.md`
+
+          > 이 PR은 자동 생성되었습니다. 내용 확인 후 main에 머지하거나 닫아 주세요.
+          EOF
+          )" \
+            --base main \
+            --head "$BRANCH"
