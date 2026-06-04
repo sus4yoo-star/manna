@@ -36,8 +36,10 @@ const nextConfig = {
     NEXT_PUBLIC_API_BASE: process.env.NEXT_PUBLIC_API_BASE || "",
   },
 
-  eslint: { ignoreDuringBuilds: true },
-  typescript: { ignoreBuildErrors: true },
+  // Surface real problems instead of shipping past them. Type errors and
+  // lint errors now fail the build (CI runs the same checks).
+  eslint: { ignoreDuringBuilds: false },
+  typescript: { ignoreBuildErrors: false },
 
   // headers() is a server feature and is not compatible with `output:
   // 'export'`, so only attach it for the web/server build.
@@ -54,6 +56,31 @@ const nextConfig = {
                   value: "no-cache, no-store, must-revalidate",
                 },
                 { key: "Service-Worker-Allowed", value: "/" },
+              ],
+            },
+            {
+              // Baseline security headers for every route.
+              source: "/:path*",
+              headers: [
+                // Stop the site being framed by other origins (clickjacking).
+                { key: "X-Frame-Options", value: "DENY" },
+                // Don't let browsers MIME-sniff responses.
+                { key: "X-Content-Type-Options", value: "nosniff" },
+                // Trim the referrer sent to third parties.
+                {
+                  key: "Referrer-Policy",
+                  value: "strict-origin-when-cross-origin",
+                },
+                // Lock down powerful APIs we don't use.
+                {
+                  key: "Permissions-Policy",
+                  value: "camera=(), microphone=(), geolocation=()",
+                },
+                // Force HTTPS once seen (safe defaults; 2 years).
+                {
+                  key: "Strict-Transport-Security",
+                  value: "max-age=63072000; includeSubDomains; preload",
+                },
               ],
             },
           ];

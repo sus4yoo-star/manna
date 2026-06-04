@@ -8,7 +8,14 @@ import {
   defaultModel,
   splitDataUrl,
 } from "@/lib/anthropic";
+import { detectCrisis } from "@/lib/crisis-detect";
+import { rateLimit } from "@/lib/rate-limit";
 import type { LangCode } from "@/lib/types";
+
+// Reject oversized image payloads before they reach the model. Anthropic
+// caps images near 5MB; base64 inflates bytes by ~33%, so ~7M chars is a
+// safe upper bound on the data-URL string. Protects cost + memory.
+const MAX_IMAGE_CHARS = 7_000_000;
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -58,6 +65,25 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // Per-user burst guard: protects the donation-funded API budget from a
+  // single client hammering the model. 20 requests / minute is generous
+  // for a real conversation but blocks runaway loops/abuse.
+  const limit = rateLimit(`chat:${userId}`, 20, 60_000);
+  if (!limit.ok) {
+    return new Response(
+      JSON.stringify({
+        error: "Too many requests. Please wait a moment and try again.",
+      }),
+      {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+          "Retry-After": String(limit.retryAfterSec),
+        },
+      }
+    );
+  }
+
   let body: Body;
   try {
     body = (await req.json()) as Body;
@@ -89,12 +115,18 @@ export async function POST(req: NextRequest) {
   const lang: LangCode = (detected || uiLang) as LangCode;
 
   const image =
-    typeof body.image === "string" && body.image.startsWith("data:image/")
+    typeof body.image === "string" &&
+    body.image.startsWith("data:image/") &&
+    body.image.length <= MAX_IMAGE_CHARS
       ? body.image
       : "";
   const hasImage = Boolean(image);
 
   const bibleMode = Boolean(body.bibleMode);
+  // Server-side safety net: the client also checks this, but enforcing it
+  // here means the signal cannot be bypassed by a modified client, and we
+  // can surface it to the UI via a response header for the help card.
+  const isCrisis = detectCrisis(userText);
   let intent = classifyIntent(userText);
   // A screenshot (often a KakaoTalk/messenger conversation) without a
   // clear reflective/general request is almost always an emotional one.
@@ -301,6 +333,7 @@ export async function POST(req: NextRequest) {
       "X-Manna-Intent": intent,
       "X-Manna-Lang": lang,
       "X-Manna-Model": model,
+      "X-Manna-Crisis": isCrisis ? "1" : "0",
     },
   });
 }

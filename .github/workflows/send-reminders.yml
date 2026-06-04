@@ -1,0 +1,37 @@
+name: Send prayer reminders
+
+# Pings the reminder endpoint so MANNA can deliver each user's daily push
+# at their local time. The endpoint itself decides who is "due right now"
+# (±4 min) and dedupes per local day, so running every 5 minutes is safe.
+#
+# REQUIRED repository secrets (Settings → Secrets and variables → Actions):
+#   APP_URL      e.g. https://your-site.netlify.app   (no trailing slash)
+#   CRON_SECRET  must match the CRON_SECRET env var on the server
+#
+# GitHub cron is best-effort and can be delayed under load; if you need
+# tighter timing, point an external scheduler (cron-job.org, etc.) at the
+# same endpoint instead.
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger reminder dispatch
+        run: |
+          if [ -z "${{ secrets.APP_URL }}" ] || [ -z "${{ secrets.CRON_SECRET }}" ]; then
+            echo "APP_URL or CRON_SECRET secret is not set — skipping."
+            exit 0
+          fi
+          code=$(curl -s -o /tmp/out.txt -w "%{http_code}" \
+            -H "x-cron-secret: ${{ secrets.CRON_SECRET }}" \
+            "${{ secrets.APP_URL }}/api/cron/send-reminders")
+          echo "HTTP $code"
+          cat /tmp/out.txt
+          # Fail the run only on a clear server/auth error so failures are visible.
+          if [ "$code" -ge 400 ]; then
+            exit 1
+          fi

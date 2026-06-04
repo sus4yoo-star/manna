@@ -13,7 +13,7 @@ export interface BibleMeta {
   version: string;
 }
 
-export const BIBLE_META: Record<LangCode, BibleMeta> = {
+export const BIBLE_META: Partial<Record<LangCode, BibleMeta>> = {
   ko: { label: "오늘의 질문", version: "" },
   en: { label: "A question for you", version: "" },
   th: { label: "คำถามสำหรับคุณ", version: "" },
@@ -36,6 +36,8 @@ export function cleanVerseText(lang: LangCode, raw: string): string {
   return t;
 }
 
+const FALLBACK_META: BibleMeta = { label: "A question for you", version: "" };
+
 export function bibleMeta(lang: LangCode): BibleMeta {
-  return BIBLE_META[lang] || BIBLE_META.en;
+  return BIBLE_META[lang] || BIBLE_META.en || FALLBACK_META;
 }

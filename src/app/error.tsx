@@ -45,6 +45,9 @@ export default function GlobalError({
           >
             다시 시도
           </button>
+          {/* Intentional full-page navigation: after an error boundary
+              trip, a hard reload to "/" guarantees a clean app state. */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a
             href="/"
             className="rounded-2xl border border-[#e3b975]/30 px-5 py-3 text-[14px] text-[#e3b975] transition hover:bg-[#e3b975]/[0.08]"
