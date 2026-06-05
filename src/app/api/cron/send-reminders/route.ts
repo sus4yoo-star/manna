@@ -69,7 +69,9 @@ export async function GET(req: Request) {
   if (!secret) {
     return NextResponse.json({ ok: false, error: "no-cron-secret" }, { status: 503 });
   }
-  const provided = req.headers.get("x-cron-secret") || new URL(req.url).searchParams.get("secret") || "";
+  // Header-only: a secret in the query string can leak via access logs,
+  // browser history, and Referer headers, so we no longer accept ?secret=.
+  const provided = req.headers.get("x-cron-secret") || "";
   if (provided !== secret) {
     return NextResponse.json({ ok: false, error: "forbidden" }, { status: 403 });
   }

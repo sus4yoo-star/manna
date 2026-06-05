@@ -15,12 +15,18 @@
 ## 3. Netlify 환경변수
 Netlify > Site configuration > Environment variables 에 아래 값을 추가하세요.
 
-- `OPENAI_API_KEY`
+- `ANTHROPIC_API_KEY`  (Claude 비밀 키, `sk-ant-...`)
+- `ANTHROPIC_MODEL`  (선택, 기본값 `claude-sonnet-4-6`)
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `SUPABASE_URL`
 - `SUPABASE_ANON_KEY`
 - `SECRETS_SCAN_ENABLED` = `false`
+
+기도 알림(푸시)을 쓸 경우에만 추가로 필요합니다:
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `VAPID_PUBLIC_KEY`, `NEXT_PUBLIC_VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`
+- `CRON_SECRET`
 
 ## 4. Supabase 설정
 Supabase Authentication URL 설정에 Netlify 도메인을 추가하세요.

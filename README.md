@@ -7,7 +7,7 @@ Calm, premium, trustworthy — not cheesy church design.
 
 ## Stack
 
-Next.js 15 (App Router) · TypeScript · Tailwind CSS · shadcn/ui · Supabase (Auth + Postgres + RLS) · OpenAI (`gpt-4o-mini`) · PWA · Netlify.
+Next.js 15 (App Router) · TypeScript · Tailwind CSS · shadcn/ui · Supabase (Auth + Postgres + RLS) · Anthropic Claude (`claude-sonnet-4-6`) · PWA · Netlify.
 
 ## Features
 
@@ -21,7 +21,7 @@ Next.js 15 (App Router) · TypeScript · Tailwind CSS · shadcn/ui · Supabase (
 ## Quick start
 
 ```bash
-cp .env.example .env.local   # fill in OpenAI + Supabase values
+cp .env.example .env.local   # fill in Anthropic + Supabase values
 npm install
 npm run dev
 ```
@@ -30,7 +30,7 @@ npm run dev
 
 See **[README_DEPLOY.md](./README_DEPLOY.md)** for the full step-by-step Supabase + Netlify guide and the database migration (`supabase/migrations/0001_init.sql`).
 
-Required environment variables: `OPENAI_API_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`.
+Required environment variables: `ANTHROPIC_API_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`. Optional (only for prayer-reminder push): `SUPABASE_SERVICE_ROLE_KEY`, `VAPID_PUBLIC_KEY`, `NEXT_PUBLIC_VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `CRON_SECRET`. See [`.env.example`](./.env.example) for the full list.
 
 ---
 
